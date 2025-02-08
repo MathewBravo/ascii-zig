@@ -61,3 +61,41 @@ pub fn normalizeVec3(vec: Vec3) !void {
     vec[1] /= len;
     vec[2] /= len;
 }
+
+pub fn distVec3(left: Vec3, right: Vec3) f32 {
+    const x: f32 = left[0] - right[0];
+    const y: f32 = left[1] - right[1];
+    const z: f32 = left[2] - right[2];
+
+    return std.math.sqrt(x * x + y * y + z * z);
+}
+
+pub fn xrotateVec3(vec: *Vec3, angle: f32) !void {
+    const x: f32 = vec[0];
+    const y: f32 = vec[1] * std.math.cos(angle) + vec[2] * std.math.sin(angle);
+    const z: f32 = -std.math.sin(angle) * vec[1] + vec[2] * std.math.cos(angle);
+
+    vec[0] = x;
+    vec[1] = y;
+    vec[2] = z;
+}
+
+pub fn yrotateVec3(vec: *Vec3, angle: f32) !void {
+    const x: f32 = std.math.cos(angle) * vec[0] - std.math.sin(angle) * vec[2];
+    const y: f32 = vec[1];
+    const z: f32 = std.math.sin(angle) * vec[0] + std.math.cos(angle) * vec[2];
+
+    vec[0] = x;
+    vec[1] = y;
+    vec[2] = z;
+}
+
+pub fn zrotateVec3(vec: *Vec3, angle: f32) !void {
+    const x: f32 = vec[0] * std.math.cos(angle) + vec[1] * std.math.sin(angle);
+    const y: f32 = -std.math.sin(angle) * vec[0] + std.math.cos(angle) * vec[1];
+    const z: f32 = vec[2];
+
+    vec[0] = x;
+    vec[1] = y;
+    vec[2] = z;
+}
